@@ -1,11 +1,18 @@
 "use client";
 
 import { useChat } from "ai/react";
+import { useState } from "react";
 
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
+  const { count, setCount } = useState(0);
+
   return (
     <div className="flex">
+      <div>
+        <h1>Count: {count}</h1>
+        <input value={count} onChange={(e) => setCount(e.target.value)} />
+      </div>
       <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
         {messages.length > 0
           ? messages.map((m) => (
