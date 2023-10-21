@@ -11,10 +11,7 @@ export default function Dual() {
     <div className="flex">
       <div>
         <h1>Count: {count}</h1>
-        <input
-          value={count}
-          onChange={(e) => setCount(parseInt(e.target.value))}
-        />
+        <button onClick={() => setCount(count + 1)}>Increment</button>
       </div>
       <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
         {messages.length > 0
