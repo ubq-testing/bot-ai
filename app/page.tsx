@@ -5,13 +5,13 @@ import { useState } from "react";
 
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
-  const [count, setCount] = useState(0);
+  const { count, setCount } = useState(0);
 
   return (
     <div className="flex">
       <div>
         <h1>Count: {count}</h1>
-        <button onClick={() => setCount(count + 1)}>Increment</button>
+        <input onClick={() => setCount(count + 1)}>Increment</input>
       </div>
       <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
         {messages.length > 0
