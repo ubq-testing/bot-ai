@@ -1,5 +1,5 @@
-evmNetworkId: 100
-issueCreatorMultiplier: 1
+evmNetworkId: 10
+issueCreatorMultiplier: 12
 timeLabels:
   - name: "Time: <1 Hour"
   - name: "Time: <2 Hours"
