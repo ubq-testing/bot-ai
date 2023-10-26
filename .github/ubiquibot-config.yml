@@ -1,4 +1,4 @@
-evmNetworkId: 100
+evmNetworkId: 10
 issueCreatorMultiplier: 1
 timeLabels:
   - name: "Time: <1 Hour"
