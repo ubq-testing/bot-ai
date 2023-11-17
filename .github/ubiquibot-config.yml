@@ -44,6 +44,8 @@ commandSettings:
     enabled: true
   - name: ask
     enabled: true
+  - name: config
+    enabled: true
 disableAnalytics: false
 enableAccessControl:
   label: true
