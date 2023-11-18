@@ -1,7 +1,23 @@
 {
-  "keys": {
-    "evmPrivateEncrypted": "8888l00t888"
+  "timers": {
+    "taskStaleTimeoutDuration": "7776000000",
+    "taskDisqualifyDuration": "18144000000",
+    "taskFollowUpDuration": "9072000000",
+    "reviewDelayTolerance": "7776000000"
   },
+  "payments": {
+    "evmNetworkId": 100,
+    "basePriceMultiplier": 1,
+    "issueCreatorMultiplier": 3,
+    "maxPermitPrice": 1000
+  },
+  "miscellaneous": {
+    "promotionComment": "org = ubq-testing, urls = [https://github.com/ubq-testing/bot-ai/issues/23, https://github.com/ubq-testing] refactor it explaining this a QA repo",
+    "maxConcurrentTasks": 9007199254740991,
+    "registerWalletWithVerification": false,
+    "openAiTokenLimit": 100000
+  },
+  "keys": {},
   "features": {
     "assistivePricing": false,
     "defaultLabels": [],
@@ -15,18 +31,6 @@
       "setLabel": true,
       "fundExternalClosedIssue": true
     }
-  },
-  "timers": {
-    "reviewDelayTolerance": "1 day",
-    "taskStaleTimeoutDuration": "4 weeks",
-    "taskFollowUpDuration": "0.5 weeks",
-    "taskDisqualifyDuration": "1 week"
-  },
-  "payments": {
-    "maxPermitPrice": 9007199254740991,
-    "evmNetworkId": 1,
-    "basePriceMultiplier": 1,
-    "issueCreatorMultiplier": 1
   },
   "disabledCommands": [
     "start",
@@ -177,11 +181,5 @@
       "Priority: 4 (Urgent)",
       "Priority: 5 (Emergency)"
     ]
-  },
-  "miscellaneous": {
-    "maxConcurrentTasks": 9007199254740991,
-    "promotionComment": "###### If you enjoy the DevPool experience, please follow [Ubiquity on GitHub](https://github.com/ubiquity) and star [this repo](https://github.com/ubiquity/devpool-directory) to show your support. It helps a lot!",
-    "registerWalletWithVerification": false,
-    "openAiTokenLimit": 100000
   }
 }
