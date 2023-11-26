@@ -1,102 +1,54 @@
 {
-  "logs": {
-    "environment": "development",
-    "level": "debug",
-    "retryLimit": 0
+  "labels": {
+    "time": [
+      "Time: <1 Hour",
+      "Time: <2 Hours",
+      "Time: <4 Hours",
+      "Time: <1 Day",
+      "Time: <1 Week",
+      "Time: More than two months",
+      "Time: Less than 6 months",
+      "Time: Less than 12 weeks"
+    ],
+    "priority": [
+      "Priority: 1 (Normal)",
+      "Priority: 2 (Medium)",
+      "Priority: 3 (High)",
+      "Priority: 4 (Urgent)",
+      "Priority: 5 (Emergency)",
+      "Priority: 69 (Long Term)",
+      "Priority: 999 (Too Long)",
+      "Priority: 12 (Utmost)"
+    ]
   },
-  "keys": {
-    "evmPrivateEncrypted": "hsjsha1212",
-    "openAi": ""
-  },
+  "keys": {},
   "features": {
     "assistivePricing": false,
     "defaultLabels": [],
     "newContributorGreeting": {
+      "enabled": false,
       "header": "Thank you for contributing! Please be sure to set your wallet address before completing your first task so that you can collect your reward.",
       "displayHelpMenu": true,
-      "footer": "###### If you enjoy the DevPool experience, please follow [Ubiquity on GitHub](https://github.com/ubiquity) and star [this repo](https://github.com/ubiquity/devpool-directory) to show your support. It helps a lot!",
-      "enabled": false
+      "footer": "###### If you enjoy the DevPool experience, please follow [Ubiquity on GitHub](https://github.com/ubiquity) and star [this repo](https://github.com/ubiquity/devpool-directory) to show your support. It helps a lot!"
     },
     "publicAccessControl": {
       "setLabel": true,
       "fundExternalClosedIssue": true
-    },
-    "staleTaskTime": "30 days"
+    }
   },
   "timers": {
-    "taskStaleTimeoutDuration": 2419200000,
-    "taskDisqualifyDuration": 604800000,
-    "taskFollowUpDuration": 302400000,
-    "reviewDelayTolerance": 86400000
+    "reviewDelayTolerance": "1 day",
+    "taskStaleTimeoutDuration": "4 weeks",
+    "taskFollowUpDuration": "0.5 weeks",
+    "taskDisqualifyDuration": "1 week"
   },
   "payments": {
+    "maxPermitPrice": 9007199254740991,
     "evmNetworkId": 1,
     "basePriceMultiplier": 1,
-    "issueCreatorMultiplier": 1,
-    "maxPermitPrice": 9007199254740991
+    "issueCreatorMultiplier": 1
   },
-  "commands": [
-    {
-      "name": "ask",
-      "enabled": false
-    },
-    {
-      "name": "assign",
-      "enabled": false
-    },
-    {
-      "name": "authorize",
-      "enabled": false
-    },
-    {
-      "name": "first",
-      "enabled": false
-    },
-    {
-      "name": "help",
-      "enabled": false
-    },
-    {
-      "name": "index",
-      "enabled": false
-    },
-    {
-      "name": "issue",
-      "enabled": false
-    },
-    {
-      "name": "labels",
-      "enabled": false
-    },
-    {
-      "name": "multiplier",
-      "enabled": false
-    },
-    {
-      "name": "nlp-config",
-      "enabled": false
-    },
-    {
-      "name": "payout",
-      "enabled": false
-    },
-    {
-      "name": "query",
-      "enabled": false
-    },
-    {
-      "name": "table",
-      "enabled": false
-    },
-    {
-      "name": "unassign",
-      "enabled": false
-    },
-    {
-      "name": "wallet",
-      "enabled": false
-    }
-  ],
+  "disabledCommands": [],
   "incentives": {
     "comment": {
       "elements": {
@@ -220,33 +172,8 @@
   },
   "miscellaneous": {
     "maxConcurrentTasks": 9007199254740991,
-    "registerWalletWithVerification": false,
     "promotionComment": "###### If you enjoy the DevPool experience, please follow [Ubiquity on GitHub](https://github.com/ubiquity) and star [this repo](https://github.com/ubiquity/devpool-directory) to show your support. It helps a lot!",
+    "registerWalletWithVerification": false,
     "openAiTokenLimit": 100000
-  },
-  "labels": {
-    "time": [
-      "Time: <1 Hour",
-      "Time: <2 Hours",
-      "Time: <4 Hours",
-      "Time: <1 Day",
-      "Time: <1 Week",
-      "Time: More than two months",
-      "Time: Less than 6 months",
-      "Time: Less than 12 weeks",
-      "Time: Less than 21 weeks"
-    ],
-    "priority": [
-      "Priority: 1 (Normal)",
-      "Priority: 2 (Medium)",
-      "Priority: 3 (High)",
-      "Priority: 4 (Urgent)",
-      "Priority: 5 (Emergency)",
-      "Priority: 69 (Long Term)",
-      "Priority: 999 (Too Long)",
-      "Priority: 12 (Utmost)",
-      "Priority: 21 (Doubt It)"
-    ]
-  },
-  "disabledCommands": []
+  }
 }
