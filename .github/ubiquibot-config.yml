@@ -6,7 +6,8 @@
       "Time: <4 Hours",
       "Time: <1 Day",
       "Time: <1 Week",
-      "Time: >2 Months"
+      "Time: >2 Months",
+      "Time: >3 Months"
     ],
     "priority": [
       "Priority: 1 (Normal)",
@@ -14,7 +15,8 @@
       "Priority: 3 (High)",
       "Priority: 4 (Urgent)",
       "Priority: 5 (Emergency)",
-      "Priority: 69 (Long Term)"
+      "Priority: 69 (Long Term)",
+      "Priority: 420 (Longer Term)"
     ]
   },
   "keys": {},
@@ -45,6 +47,17 @@
     "issueCreatorMultiplier": 1
   },
   "disabledCommands": [
+    "start",
+    "stop",
+    "help",
+    "autopay",
+    "query",
+    "ask",
+    "multiplier",
+    "labels",
+    "authorize",
+    "wallet",
+    "config"
   ],
   "incentives": {
     "comment": {
