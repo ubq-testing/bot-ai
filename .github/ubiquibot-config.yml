@@ -29,17 +29,7 @@
     "issueCreatorMultiplier": 1
   },
   "disabledCommands": [
-    "start",
-    "stop",
-    "help",
-    "autopay",
-    "query",
-    "ask",
-    "multiplier",
-    "labels",
-    "authorize",
-    "wallet",
-    "config"
+
   ],
   "incentives": {
     "comment": {
