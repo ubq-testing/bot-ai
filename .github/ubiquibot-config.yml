@@ -48,19 +48,7 @@
     "basePriceMultiplier": 1,
     "issueCreatorMultiplier": 1
   },
-  "disabledCommands": [
-    "start",
-    "stop",
-    "help",
-    "autopay",
-    "query",
-    "ask",
-    "multiplier",
-    "labels",
-    "authorize",
-    "wallet",
-    "config"
-  ],
+  "disabledCommands": [],
   "incentives": {
     "comment": {
       "elements": {
