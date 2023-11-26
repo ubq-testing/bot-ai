@@ -6,7 +6,8 @@
       "Time: <4 Hours",
       "Time: <1 Day",
       "Time: <1 Week",
-      "Time: More than two months"
+      "Time: More than two months",
+      "Time: Less than 6 months"
     ],
     "priority": [
       "Priority: 1 (Normal)",
@@ -14,7 +15,8 @@
       "Priority: 3 (High)",
       "Priority: 4 (Urgent)",
       "Priority: 5 (Emergency)",
-      "Priority: 69 (Long Term)"
+      "Priority: 69 (Long Term)",
+      "Priority: 999 (Too Long)"
     ]
   },
   "keys": {},
@@ -44,7 +46,7 @@
     "basePriceMultiplier": 1,
     "issueCreatorMultiplier": 1
   },
-  "disabledCommands": [  ],
+  "disabledCommands": [],
   "incentives": {
     "comment": {
       "elements": {
