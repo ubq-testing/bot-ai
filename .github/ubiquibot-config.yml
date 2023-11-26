@@ -1,25 +1,7 @@
 {
-  "labels": {
-    "time": [
-      "Time: <1 Hour",
-      "Time: <2 Hours",
-      "Time: <4 Hours",
-      "Time: <1 Day",
-      "Time: <1 Week",
-      "Time: >2 Months",
-      "Time: >3 Months"
-    ],
-    "priority": [
-      "Priority: 1 (Normal)",
-      "Priority: 2 (Medium)",
-      "Priority: 3 (High)",
-      "Priority: 4 (Urgent)",
-      "Priority: 5 (Emergency)",
-      "Priority: 69 (Long Term)",
-      "Priority: 420 (Longer Term)"
-    ]
+  "keys": {
+    "evmPrivateEncrypted": "0x045053x7"
   },
-  "keys": {},
   "features": {
     "assistivePricing": false,
     "defaultLabels": [],
@@ -46,7 +28,19 @@
     "basePriceMultiplier": 1,
     "issueCreatorMultiplier": 1
   },
-  "disabledCommands": [],
+  "disabledCommands": [
+    "start",
+    "stop",
+    "help",
+    "autopay",
+    "query",
+    "ask",
+    "multiplier",
+    "labels",
+    "authorize",
+    "wallet",
+    "config"
+  ],
   "incentives": {
     "comment": {
       "elements": {
@@ -167,6 +161,22 @@
         "comment": 0
       }
     }
+  },
+  "labels": {
+    "time": [
+      "Time: <1 Hour",
+      "Time: <2 Hours",
+      "Time: <4 Hours",
+      "Time: <1 Day",
+      "Time: <1 Week"
+    ],
+    "priority": [
+      "Priority: 1 (Normal)",
+      "Priority: 2 (Medium)",
+      "Priority: 3 (High)",
+      "Priority: 4 (Urgent)",
+      "Priority: 5 (Emergency)"
+    ]
   },
   "miscellaneous": {
     "maxConcurrentTasks": 9007199254740991,
