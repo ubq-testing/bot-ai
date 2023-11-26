@@ -1,10 +1,5 @@
 {
-  "miscellaneous": {
-    "promotionComment": "Your first contribution will be gas-funded so you can claim your reward for free, what are you waiting for?",
-    "maxConcurrentTasks": 9007199254740991,
-    "registerWalletWithVerification": false,
-    "openAiTokenLimit": 100000
-  },
+  "disabledCommands": [],
   "keys": {},
   "features": {
     "assistivePricing": false,
@@ -32,19 +27,6 @@
     "basePriceMultiplier": 1,
     "issueCreatorMultiplier": 1
   },
-  "disabledCommands": [
-    "start",
-    "stop",
-    "help",
-    "autopay",
-    "query",
-    "ask",
-    "multiplier",
-    "labels",
-    "authorize",
-    "wallet",
-    "config"
-  ],
   "incentives": {
     "comment": {
       "elements": {
@@ -181,5 +163,11 @@
       "Priority: 4 (Urgent)",
       "Priority: 5 (Emergency)"
     ]
+  },
+  "miscellaneous": {
+    "maxConcurrentTasks": 9007199254740991,
+    "promotionComment": "###### If you enjoy the DevPool experience, please follow [Ubiquity on GitHub](https://github.com/ubiquity) and star [this repo](https://github.com/ubiquity/devpool-directory) to show your support. It helps a lot!",
+    "registerWalletWithVerification": false,
+    "openAiTokenLimit": 100000
   }
 }
