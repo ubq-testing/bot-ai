@@ -63,5 +63,7 @@ jobs:
             The following occurrences of empty strings were detected. Please review them to ensure their usage is necessary:
 
             ```plaintext
+            
             ${{ steps.find_empty_strings.outputs.results }}
+            
             ```
