@@ -42,11 +42,20 @@ jobs:
             echo "${{ steps.find_empty_strings.outputs.results }}"
           fi
 
+      - name: Find Comment
+        uses: peter-evans/find-comment@v3
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: "<!-- {EMPTY_STRING_USAGE} -->"
+          comment-author: github-actions[bot]
+
       - name: Comment on PR
         if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
           edit-mode: replace
           body: |
             ## Empty String Usage Detected
@@ -56,3 +65,6 @@ jobs:
             ```plaintext
             ${{ steps.find_empty_strings.outputs.results }}
             ```
+
+
+            <!-- {EMPTY_STRING_USAGE} -->
