@@ -14,7 +14,7 @@ export default function Dual() {
                 {m.content}
               </div>
             ))
-          : null}
+          : null}//
 
         <form onSubmit={handleSubmit}>
           <input
