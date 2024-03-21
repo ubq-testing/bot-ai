@@ -1,0 +1,56 @@
+name: Warn for Empty Strings
+
+on:
+  pull_request:
+    paths:
+      - "**/*.ts"
+      - "**/*.tsx"
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  check-empty-strings:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Find empty strings in TypeScript files
+        id: find_empty_strings
+        run: |
+          # Find empty strings and mark them explicitly
+          output=$(grep -Rn --include=\*.ts "''\|\"\"" --exclude-dir={node_modules,dist,out} . || true)
+
+          if [ -z "$output" ]; then
+            echo "::set-output name=results::No empty strings found."
+            exit 0
+          else
+            output=$(echo "$output" | sed 's/""/"[EMPTY STRING]"/g' | sed "s/''/'[EMPTY STRING]'/g")
+            echo "::set-output name=results::${output//$'\n'/%0A}"
+          fi
+
+      - name: findings
+        if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
+        run: |
+          if [ "${{ steps.find_empty_strings.outputs.results }}" == "No empty strings found." ]; then
+            echo "No empty strings found. No action required."
+          else
+            echo "::warning::Empty strings found in the following files:"
+            echo "${{ steps.find_empty_strings.outputs.results }}"
+          fi
+
+      - name: Comment on PR
+        if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
+        uses: KeisukeYamashita/create-comment@v1
+        with:
+          comment: |
+            ## Empty String Usage Detected
+
+            The following occurrences of empty strings were detected. Please review them to ensure their usage is necessary:
+
+            \```plaintext
+            ${{ steps.find_empty_strings.outputs.results }}
+            \```
