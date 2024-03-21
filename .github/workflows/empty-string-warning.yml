@@ -73,5 +73,5 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const { number } = context.issue;
-            const { comment_id } = context.payload.comment;
+            const  comment_id = ${{ steps.find_comment.outputs.comment-id }}
             github.issues.deleteComment({ owner, repo, comment_id });
