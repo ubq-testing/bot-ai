@@ -44,16 +44,14 @@ jobs:
 
       - name: Comment on PR
         if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
-        uses: KeisukeYamashita/create-comment@v1
+        uses: peter-evans/create-or-update-comment@v4
         with:
-          unique: true
-          comment: |
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
             ## Empty String Usage Detected
 
             The following occurrences of empty strings were detected. Please review them to ensure their usage is necessary:
 
-            ```
-            
+            ```plaintext
             ${{ steps.find_empty_strings.outputs.results }}
-            
             ```
