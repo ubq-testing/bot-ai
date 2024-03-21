@@ -46,11 +46,14 @@ jobs:
         if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
         uses: KeisukeYamashita/create-comment@v1
         with:
+          unique: true
           comment: |
             ## Empty String Usage Detected
 
             The following occurrences of empty strings were detected. Please review them to ensure their usage is necessary:
 
-            \`\`\`plaintext
+            ```
+            
             ${{ steps.find_empty_strings.outputs.results }}
-            \`\`\`
+            
+            ```
