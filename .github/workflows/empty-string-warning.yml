@@ -37,25 +37,24 @@ jobs:
         id: find_empty_strings
         run: |
           files="${{ steps.list_files.outputs.files }}"
-          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} "''\|\"\"" --exclude-dir={node_modules,dist,out} || true)
-          
+          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} "=''\\|\"\"\\|\{\"\\"\\|\{'\'" --exclude-dir={node_modules,dist,out} || true)
           if [ -z "$output" ]; then
             echo "::set-output name=results::No empty strings found."
             exit 0
           else
-            output=$(echo "$output" | sed 's/""/"[EMPTY STRING]"/g' | sed "s/''/'[EMPTY STRING]'/g")
-            echo "::set-output name=results::${output//$'\n'/%0A}"
+            sanitized_output=$(echo "$output" | sed 's/"/\\"/g' | sed "s/'/\\'/g" | awk '{print $1 " " $2 " " $3}')
+            echo "::set-output name=results::${sanitized_output//$'\n'/%0A}"
           fi
 
       - name: Findings
         if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
         run: |
-          if [ "${{ steps.find_empty_strings.outputs.results }}" == "No empty strings found." ]; then
-            echo "No empty strings found. No action required."
-            exit 0
-          else
+          findings=$(echo "${{ steps.find_empty_strings.outputs.results }}" | tr '%0A' '\n')
+          if [ "$findings" != "No empty strings found." ]; then
             echo "::warning::Empty strings found in the following files:"
-            echo "${{ steps.find_empty_strings.outputs.results }}"
+            echo "$findings"
+          else
+            echo "No empty strings found. No action required."
           fi
 
       - name: Post review comments for findings
@@ -63,35 +62,29 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const findingsRaw = `${{ steps.find_empty_strings.outputs.results }}`;
-            const findings = findingsRaw.split('\n');
+            const findingsRaw = `${{ steps.find_empty_strings.outputs.results }}`.replace(/%0A/g, '\n');
+            const findings = findingsRaw.split('\n').filter(line => line.trim().length > 0);
             const body = "Empty string detected!";
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const commit_sha = context.payload.pull_request.head.sha;
 
             for (const finding of findings) {
-              const parts = finding.split(':');
-              const path = parts[0];
-              const line = parseInt(parts[1], 10);
-
-              const payload = {
-                owner,
-                repo,
-                commit_sha,
-                path,
-                body,
-                position: line
-                }
-
-                console.log("payload: ", payload);
-
+              const [path, line, ...rest] = finding.split(':');
+              const position = parseInt(line, 10);
 
               try {
-                await github.rest.repos.createCommitComment(payload);
-                console.log(`Comment posted to ${path} at position ${line}`);
+                await github.rest.repos.createCommitComment({
+                  owner,
+                  repo,
+                  commit_sha,
+                  path,
+                  body,
+                  position, 
+                });
+                console.log(`Comment posted to ${path} at position ${position}`);
               } catch (error) {
-                console.error(`Error posting comment to ${path}:${line}`, error);
+                console.error(`Error posting comment to ${path}:${position}`, error);
               }
             }
         env:
