@@ -3,6 +3,7 @@
 import { useChat } from "ai/react";
 import { useState } from "react";
 const SETUP = ""
+let l = ''
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
   const { count, setCount } = useState(0);
