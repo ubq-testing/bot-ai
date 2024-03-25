@@ -63,7 +63,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const findingsRaw = `${{ steps.find_empty_strings.outputs.results }}`;
+            const findingsRaw = `${{ steps.find_empty_strings.outputs.results }}`.replace(/%0A/g, '\n');
             const findings = findingsRaw.split('\n');
             const body = "Empty string detected!";
             const owner = context.repo.owner;
