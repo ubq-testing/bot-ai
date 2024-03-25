@@ -9,7 +9,7 @@ export default function DualLayout(props: {
   docs: React.ReactNode;
 }) {
   return (
-    <div className="grid grid-cols-3 shrink">
+    <div className="">
       {props.data}
       {props.children}
       {props.docs}

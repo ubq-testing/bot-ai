@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { Message } from 'ai/react';
-import { useChat } from 'ai/react';
-import { ChatRequest, FunctionCallHandler, nanoid } from 'ai';
+import { Message } from "ai/react";
+import { useChat } from "ai/react";
+import { ChatRequest, FunctionCallHandler, nanoid } from "ai";
 
 export default function Chat() {
   const functionCallHandler: FunctionCallHandler = async (
     chatMessages,
-    functionCall,
+    functionCall
   ) => {
-    if (functionCall.name === 'eval_code_in_browser') {
+    if (functionCall.name === "") {
       if (functionCall.arguments) {
         // Parsing here does not always work since it seems that some characters in generated code aren't escaped properly.
         const parsedFunctionCallArguments: { code: string } = JSON.parse(
-          functionCall.arguments,
+          functionCall.arguments
         );
         // WARNING: Do NOT do this in real-world applications!
         eval(parsedFunctionCallArguments.code);
@@ -22,8 +22,8 @@ export default function Chat() {
             ...chatMessages,
             {
               id: nanoid(),
-              name: 'eval_code_in_browser',
-              role: 'function' as const,
+              name: "eval_code_in_browser",
+              role: "function" as const,
               content: parsedFunctionCallArguments.code,
             },
           ],
@@ -34,16 +34,16 @@ export default function Chat() {
   };
 
   const { messages, input, handleInputChange, handleSubmit, data } = useChat({
-    api: '/api/chat-with-functions',
+    api: "/api/chat-with-functions",
     experimental_onFunctionCall: functionCallHandler,
   });
 
   // Generate a map of message role to text color
-  const roleToColorMap: Record<Message['role'], string> = {
-    system: 'red',
-    user: 'black',
-    function: 'blue',
-    assistant: 'green',
+  const roleToColorMap: Record<Message["role"], string> = {
+    system: "red",
+    user: "black",
+    function: "blue",
+    assistant: "green",
   };
 
   return (
