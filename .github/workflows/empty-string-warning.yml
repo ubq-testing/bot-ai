@@ -63,25 +63,28 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const findings = `${{ steps.find_empty_strings.outputs.results }}`.split('%0A');
+            const findingsRaw = `${{ steps.find_empty_strings.outputs.results }}`;
+            const findings = findingsRaw.split('\n');
+            const body = "Empty string detected!";
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const commit_sha = context.payload.pull_request.head.sha;
+
             for (const finding of findings) {
-  
-              const path = finding.split(':')[0].replace('./', '');
-              const line = finding.split(':')[1].split(':')[0];
-              
-              const body = "Empty string detected!";
-              const owner = context.repo.owner;
-              const repo = context.repo.repo;
-              
+              const parts = finding.split(':');
+              const path = parts[0];
+              const line = parseInt(parts[1], 10);
+
               try {
                 await github.rest.repos.createCommitComment({
                   owner,
                   repo,
-                  body,
-                  commit_sha: context.payload.pull_request.head.sha,
+                  commit_sha,
                   path,
-                  line: parseInt(line, 10),
+                  body,
+                  position: line, 
                 });
+                console.log(`Comment posted to ${path} at position ${line}`);
               } catch (error) {
                 console.error(`Error posting comment to ${path}:${line}`, error);
               }
