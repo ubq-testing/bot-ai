@@ -5,8 +5,8 @@ import { useChat } from "ai/react";
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
   return (
-    <div className="">
-      <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
+    <div className="sdasd">
+      <div className="">
         {messages.length > 0
           ? messages.map((m) => (
               <div key={m.id} className="whitespace-pre-wrap">
