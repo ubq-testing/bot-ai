@@ -37,8 +37,8 @@ jobs:
         id: find_empty_strings
         run: |
           files="${{ steps.list_files.outputs.files }}"
-          output=$(echo "$files" | xargs grep -n --include=\*.{ts,tsx} "''\|\"\"" --exclude-dir={node_modules,dist,out} || true)
-
+          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} "''\|\"\"" --exclude-dir={node_modules,dist,out} || true)
+          
           if [ -z "$output" ]; then
             echo "::set-output name=results::No empty strings found."
             exit 0
@@ -63,16 +63,16 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const findings = `${{ steps.find_empty_strings.outputs.results }}`.split('\n');
+            const findings = `${{ steps.find_empty_strings.outputs.results }}`.split('%0A');
             for (const finding of findings) {
-
-              const path = finding.split(':')[0].replace('./', '');
-              const line = finding.split(':')[1].split(':')[0];
+              const [filePath, line, ...rest] = finding.split(':');
+              
+              const path = filePath.startsWith('./') ? filePath.slice(2) : filePath;
               
               const body = "Empty string detected!";
               const owner = context.repo.owner;
               const repo = context.repo.repo;
-
+      
               await github.rest.repos.createCommitComment({
                 owner,
                 repo,
