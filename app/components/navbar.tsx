@@ -9,7 +9,7 @@ export default function NavBar() {
       <Link className="text-2xl font-bold" href="/docs">
         Data
       </Link>
-      <Link className="text-2xl font-bold" href=''>
+      <Link className="text-2xl font-bold" href="">
         Docs
       </Link>
     </div>
