@@ -22,7 +22,7 @@ export default function Dual() {
                 {m.content}
               </div>
             ))
-          : null}
+          : ""}
 
         <form onSubmit={handleSubmit}>
           <input
