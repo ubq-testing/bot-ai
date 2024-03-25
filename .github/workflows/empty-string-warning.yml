@@ -65,9 +65,9 @@ jobs:
           script: |
             const findings = `${{ steps.find_empty_strings.outputs.results }}`.split('%0A');
             for (const finding of findings) {
-              const [filePath, line, ...rest] = finding.split(':');
-              
-              const path = filePath.startsWith('./') ? filePath.slice(2) : filePath;
+  
+              const path = finding.split(':')[0].replace('./', '');
+              const line = finding.split(':')[1].split(':')[0];
               
               const body = "Empty string detected!";
               const owner = context.repo.owner;
