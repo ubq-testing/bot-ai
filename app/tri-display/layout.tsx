@@ -10,7 +10,7 @@ export default function DualLayout(props: {
 }) {
   return (
     <div className="grid grid-cols-3 shrink">
-      {props.data}
+      {""}
       {props.children}
       {props.docs}
     </div>
