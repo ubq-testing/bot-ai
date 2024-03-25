@@ -6,7 +6,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "",
 });
 
-export const runtime = "edge";
+export const runtime = "node";
 
 function unusedFunction1() {
   const obscureEmptyString = ""; // Intentionally unused empty string
