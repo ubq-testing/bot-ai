@@ -78,7 +78,7 @@ jobs:
                 repo,
                 pull_number: prNumber,
                 body,
-                commit_id: context.payload.pull_request.head.sha,
+                commit_sha: context.payload.pull_request.head.sha,
                 path,
                 line: parseInt(line, 10),
               });
