@@ -20,6 +20,8 @@ function example() {
 \`\`\`
 `;
 
+let o = "";
+
 export default function DocsPage() {
   const [markdown, setMarkdown] = useState("");
 

@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
   const { count, setCount } = useState(0);
-
+  const l = "";
   return (
     <div className="flex">
       <div>
