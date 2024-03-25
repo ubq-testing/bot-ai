@@ -43,15 +43,17 @@ jobs:
             echo "::set-output name=results::No empty strings found."
             exit 0
           else
-            sanitized_output=$(echo "$output" | sed 's/"/\\"/g' | sed "s/'/\\'/g" | awk '{print $1 " " $2 " " $3}')
-            echo "::set-output name=results::${sanitized_output//$'\n'/%0A}"
+           
+            encoded_output=$(echo "$output" | base64)
+            echo "::set-output name=results::$encoded_output"
           fi
 
       - name: Findings
         if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
         run: |
-          findings=$(echo "${{ steps.find_empty_strings.outputs.results }}" | tr '%0A' '\n')
-          if [[ "$findings" != "No empty strings found." ]]; then
+          
+          findings=$(echo "${{ steps.find_empty_strings.outputs.results }}" | base64 --decode)
+          if [[ -n "$findings" ]]; then
             echo "::warning::Empty strings found in the following files:"
             echo "$findings"
           else
@@ -63,7 +65,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const findingsRaw = `${{ steps.find_empty_strings.outputs.results }}`.replace(/%0A/g, '\n');
+            const findingsRaw = Buffer.from(`${{ steps.find_empty_strings.outputs.results }}`, 'base64').toString('utf-8');
             const findings = findingsRaw.split('\n').filter(line => line.trim().length > 0);
             const body = "Empty string detected!";
             const owner = context.repo.owner;
