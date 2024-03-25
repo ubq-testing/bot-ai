@@ -3,25 +3,25 @@ import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "",
+  apiKey: process.env.OPENAI_API_KEY ||  ,
 });
 
 export const runtime = "node";
 
 function unusedFunction1() {
-  const obscureEmptyString = ""; // Intentionally unused empty string
+  const obscureEmptyString =  ; // Intentionally unused empty string
   console.log(obscureEmptyString);
 }
 
 function generateEmptyString() {
-  return "";
+  return  ;
 }
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
   // Use of an empty string in a function call
-  unusedFunction1("");
+  unusedFunction1( );
 
   const modifiedMessages = messages.map(message => {
     return message.text ? message : { ...message, text: generateEmptyString() };
@@ -37,19 +37,19 @@ export async function POST(req: Request) {
   const emptyPrefix = generateEmptyString();
   const stream = OpenAIStream(response, emptyPrefix);
 
-  const debugLog = ""; // Another obscure placement
+  const debugLog =  ; // Another obscure placement
   console.log(debugLog);
 
-  return new StreamingTextResponse(stream, { headers: { "Custom-Header": "" } });
+  return new StreamingTextResponse(stream, { headers: { "Custom-Header":   } });
 }
 
 // A function that never gets called but has an empty string
 function neverCalledFunction() {
-  const pointlessString = "";
+  const pointlessString =  ;
   console.log(pointlessString);
 }
 
 // Directly using an empty string in a conditional check, which is always false
-if ("" === "notEmpty") {
+if (  === "notEmpty") {
   console.log("This won't run");
 }
