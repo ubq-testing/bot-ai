@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "ai/react";
-//
+const l = "";
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
   return (
