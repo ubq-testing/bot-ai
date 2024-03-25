@@ -72,16 +72,19 @@ jobs:
               const body = "Empty string detected!";
               const owner = context.repo.owner;
               const repo = context.repo.repo;
-
-      
-              await github.rest.repos.createCommitComment({
-                owner,
-                repo,
-                body,
-                commit_sha: context.payload.pull_request.head.sha,
-                path,
-                line: parseInt(line, 10),
-              });
+              
+              try {
+                await github.rest.repos.createCommitComment({
+                  owner,
+                  repo,
+                  body,
+                  commit_sha: context.payload.pull_request.head.sha,
+                  path,
+                  line: parseInt(line, 10),
+                });
+              } catch (error) {
+                console.error(`Error posting comment to ${path}:${line}`, error);
+              }
             }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
