@@ -1,1 +1,3 @@
 # README
+
+No empty strings.
