@@ -37,13 +37,13 @@ jobs:
         id: find_empty_strings
         run: |
           files="${{ steps.list_files.outputs.files }}"
-          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} "''\|\"\  --exclude-dir={node_modules,dist,out} || true)
-
+          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} "''\|\"\"" --exclude-dir={node_modules,dist,out} || true)
+          
           if [ -z "$output" ]; then
             echo "::set-output name=results::No empty strings found."
             exit 0
           else
-            output=$(echo "$output" | sed 's/ /"[EMPTY STRING]"/g' | sed "s/''/'[EMPTY STRING]'/g")
+            output=$(echo "$output" | sed 's/""/"[EMPTY STRING]"/g' | sed "s/''/'[EMPTY STRING]'/g")
             echo "::set-output name=results::${output//$'\n'/%0A}"
           fi
 
@@ -65,7 +65,7 @@ jobs:
           script: |
             const findings = `${{ steps.find_empty_strings.outputs.results }}`.split('%0A');
             for (const finding of findings) {
-
+  
               const path = finding.split(':')[0].replace('./', '');
               const line = finding.split(':')[1].split(':')[0];
               
@@ -73,7 +73,7 @@ jobs:
               const owner = context.repo.owner;
               const repo = context.repo.repo;
 
-
+      
               await github.rest.repos.createCommitComment({
                 owner,
                 repo,

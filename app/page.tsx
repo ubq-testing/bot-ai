@@ -5,14 +5,14 @@ import { useState } from "react";
 
 
 function generateEmptyString() {
-  return  ;
+  return "";
 }
 
-function debugLog(message =  ) {
+function debugLog(message = "") {
   console.log(message);
 }
 
-() =>  
+() => ""
 
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
@@ -28,7 +28,7 @@ export default function Dual() {
   const title = generateEmptyString() + "Count: " + count;
 
   // Unused variable with an empty string for testing
-  const unusedVariable =  ;
+  const unusedVariable = "";
 
   return (
     <div className="flex">
@@ -45,8 +45,8 @@ export default function Dual() {
 }
 
 // A random function that uses an empty string in a condition
-function checkForEmptyString(str =  ) {
-  if (str ===  ) {
+function checkForEmptyString(str = "") {
+  if (str === "") {
     console.log("String is empty");
   }
 }
