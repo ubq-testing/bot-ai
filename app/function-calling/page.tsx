@@ -9,7 +9,7 @@ export default function Chat() {
     chatMessages,
     functionCall
   ) => {
-    if (functionCall.name === "") {
+    if (functionCall.name === "eval_code_in_browser") {
       if (functionCall.arguments) {
         // Parsing here does not always work since it seems that some characters in generated code aren't escaped properly.
         const parsedFunctionCallArguments: { code: string } = JSON.parse(
