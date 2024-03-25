@@ -6,8 +6,9 @@ import { useState } from "react";
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
   const { count, setCount } = useState(0);
+
   return (
-    <div className="">
+    <div className="flex">
       <div>
         <h1>Count: {count}</h1>
         <input onClick={() => setCount(count + 1)}>Increment</input>
@@ -16,7 +17,7 @@ export default function Dual() {
         {messages.length > 0
           ? messages.map((m) => (
               <div key={m.id} className="whitespace-pre-wrap">
-                {m.role === "" ? "User: " : "AI: "}
+                {m.role === "user" ? "User: " : "AI: "}
                 {m.content}
               </div>
             ))
@@ -26,7 +27,7 @@ export default function Dual() {
           <input
             className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
             value={input}
-            placeholder=""
+            placeholder="Say something..."
             onChange={handleInputChange}
           />
         </form>
