@@ -9,9 +9,9 @@ export default function DualLayout(props: {
   docs: React.ReactNode;
 }) {
   return (
-    <div className="">
-      {""}
-      {""}
+    <div class="">
+      {"sada"}
+      {"sdasdsa"}
     </div>
   );
 }
