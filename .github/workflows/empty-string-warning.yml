@@ -43,7 +43,7 @@ jobs:
             echo "::set-output name=results::No empty strings found."
             exit 0
           else
-            output=$(echo "$output" | sed 's/""/"[EMPTY STRING]"/g' | sed "s/''/'[EMPTY STRING]'/g")
+            output=$(echo "$output" | sed 's/""/"EMPTY STRING"/g' | sed "s/''/'EMPTY STRING'/g")
             echo "::set-output name=results::${output//$'\n'/%0A}"
           fi
 
