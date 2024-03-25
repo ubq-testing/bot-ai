@@ -19,12 +19,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 2
 
       - name: List files in the pull
         id: list_files
         run: |
-          files=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -E "\.(ts|tsx)$")
+          files=$(git diff --name-only HEAD~ HEAD | grep -E "\.(ts|tsx)$")
           files="${files//'%'/'%25'}"
           files="${files//$'\n'/'%0A'}"
           files="${files//$'\r'/'%0D'}"
