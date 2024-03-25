@@ -12,6 +12,8 @@ function debugLog(message = "") {
   console.log(message);
 }
 
+() => ""
+
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
   const [count, setCount] = useState(0);
