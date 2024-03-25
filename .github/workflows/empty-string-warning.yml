@@ -37,23 +37,21 @@ jobs:
         id: find_empty_strings
         run: |
           files="${{ steps.list_files.outputs.files }}"
-          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} -E "=''\|\"\"|>{\s*\"\"\s*}<|\{''\}" --exclude-dir={node_modules,dist,out} || true)
+          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} "''\|\"\"" --exclude-dir={node_modules,dist,out} || true)
           
           if [ -z "$output" ]; then
             echo "::set-output name=results::No empty strings found."
             exit 0
           else
-           
-            encoded_output=$(echo "$output" | base64)
-            echo "::set-output name=results::$encoded_output"
+            output=$(echo "$output" | sed 's/""/"[EMPTY STRING]"/g' | sed "s/''/'[EMPTY STRING]'/g")
+            echo "::set-output name=results::${output//$'\n'/%0A}"
           fi
 
       - name: Findings
         if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
         run: |
-          
-          findings=$(echo "${{ steps.find_empty_strings.outputs.results }}" | base64 --decode)
-          if [[ -n "$findings" ]]; then
+          findings="${{ steps.find_empty_strings.outputs.results }}"
+          if [[ "$findings" != "No empty strings found." ]]; then
             echo "::warning::Empty strings found in the following files:"
             echo "$findings"
           else
@@ -65,8 +63,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const findingsRaw = Buffer.from(`${{ steps.find_empty_strings.outputs.results }}`, 'base64').toString('utf-8');
-            const findings = findingsRaw.split('\n').filter(line => line.trim().length > 0);
+            const findingsRaw = `${{ steps.find_empty_strings.outputs.results }}`;
+            const findings = findingsRaw.split('\n');
             const body = "Empty string detected!";
             const owner = context.repo.owner;
             const repo = context.repo.repo;
@@ -84,7 +82,7 @@ jobs:
                   commit_sha,
                   path,
                   body,
-                  position: line,
+                  position: line, 
                 });
                 console.log(`Comment posted to ${path} at position ${line}`);
               } catch (error) {
