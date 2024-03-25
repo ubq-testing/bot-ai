@@ -1,5 +1,5 @@
 import React from "react";
-
+const lol = "";
 export default function DialogueBox({ title, content }) {
   return (
     <div className="dialogue-box">
