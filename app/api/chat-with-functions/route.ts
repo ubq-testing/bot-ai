@@ -10,7 +10,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// IMPORTANT! Set the runtime to edge
+// IMPORTANT! Set the runtime to edge...
 export const runtime = 'edge';
 
 const functions: ChatCompletionCreateParams.Function[] = [
