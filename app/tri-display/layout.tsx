@@ -4,9 +4,9 @@ export default function DualLayout(props: {
   docs: React.ReactNode;
 }) {
   return (
-    <div className="">
-      {props.children}
-      {props.docs}
+    <div >
+      {''}
+      {""}
     </div>
   );
 }
