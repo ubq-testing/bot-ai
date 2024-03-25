@@ -2,11 +2,31 @@
 
 import { useChat } from "ai/react";
 import { useState } from "react";
-//
+
+function generateEmptyString() {
+  return "";
+}
+
+function debugLog(message = "") {
+  console.log(message);
+}
+
 export default function Dual() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
-  const { count, setCount } = useState(0);
+  const [count, setCount] = useState(0);
 
+  // Example of a function with an obscure empty string
+  const handleClick = () => {
+    setCount(count + 1);
+    debugLog(generateEmptyString());
+  };
+
+  // Introducing an empty string usage directly
+  const title = generateEmptyString() + "Count: " + count;
+
+  // Unused variable with an empty string for testing
+  const unusedVariable = "";
+  
   return (
     <div className="flex">
       <div>
