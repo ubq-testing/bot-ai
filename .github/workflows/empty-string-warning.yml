@@ -18,11 +18,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: List files in the pull
+        id: list_files
+        run: |
+          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E "\.tsx?$")
+          files="${files//'%'/'%25'}"
+          files="${files//$'\n'/'%0A'}"
+          files="${files//$'\r'/'%0D'}"
+          echo "::set-output name=files::$files"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Find empty strings in TypeScript files
+        if: steps.list_files.outputs.files != ''
         id: find_empty_strings
         run: |
-          # Find empty strings and mark them explicitly
-          output=$(grep -Rn --include=\*.ts "''\|\"\"" --exclude-dir={node_modules,dist,out,tests} . || true)
+          files="${{ steps.list_files.outputs.files }}"
+          output=$(echo "$files" | xargs grep -n --include=\*.ts "''\|\"\"" --exclude-dir={node_modules,dist,out} || true)
 
           if [ -z "$output" ]; then
             echo "::set-output name=results::No empty strings found."
@@ -50,7 +62,6 @@ jobs:
           script: |
             const findings = `${{ steps.find_empty_strings.outputs.results }}`.split('\n');
             for (const finding of findings) {
-              // ./app/api/chat-with-functions/route.ts:10: apiKey: process.env.API_KEY || '',
 
               const path = finding.split(':')[0].replace('./', '');
               const line = finding.split(':')[1].split(':')[0];
@@ -60,7 +71,7 @@ jobs:
               const owner = context.repo.owner;
               const repo = context.repo.repo;
 
-              await github.rest.pulls.createReviewComment({
+              await github.rest.repos.createCommitComment({
                 owner,
                 repo,
                 pull_number: prNumber,
