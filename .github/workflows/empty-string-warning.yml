@@ -37,7 +37,8 @@ jobs:
         id: find_empty_strings
         run: |
           files="${{ steps.list_files.outputs.files }}"
-          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} "=''\\|\"\"\\|\{\"\\"\\|\{'\'" --exclude-dir={node_modules,dist,out} || true)
+          output=$(echo "$files" | xargs grep -Hn --include=\*.{ts,tsx} -E "=''\|\"\"|>{\s*\"\"\s*}<|\{''\}" --exclude-dir={node_modules,dist,out} || true)
+          
           if [ -z "$output" ]; then
             echo "::set-output name=results::No empty strings found."
             exit 0
@@ -50,7 +51,7 @@ jobs:
         if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
         run: |
           findings=$(echo "${{ steps.find_empty_strings.outputs.results }}" | tr '%0A' '\n')
-          if [ "$findings" != "No empty strings found." ]; then
+          if [[ "$findings" != "No empty strings found." ]]; then
             echo "::warning::Empty strings found in the following files:"
             echo "$findings"
           else
@@ -70,8 +71,9 @@ jobs:
             const commit_sha = context.payload.pull_request.head.sha;
 
             for (const finding of findings) {
-              const [path, line, ...rest] = finding.split(':');
-              const position = parseInt(line, 10);
+              const parts = finding.split(':');
+              const path = parts[0];
+              const line = parseInt(parts[1], 10);
 
               try {
                 await github.rest.repos.createCommitComment({
@@ -80,11 +82,11 @@ jobs:
                   commit_sha,
                   path,
                   body,
-                  position, 
+                  position: line,
                 });
-                console.log(`Comment posted to ${path} at position ${position}`);
+                console.log(`Comment posted to ${path} at position ${line}`);
               } catch (error) {
-                console.error(`Error posting comment to ${path}:${position}`, error);
+                console.error(`Error posting comment to ${path}:${line}`, error);
               }
             }
         env:
