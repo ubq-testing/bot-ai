@@ -80,7 +80,8 @@ jobs:
                 body,
                 commit_sha: context.payload.pull_request.head.sha,
                 path,
-                line: parseInt(line, 10)
+                position: parseInt(line, 10),
+               
               });
             }
         env:
