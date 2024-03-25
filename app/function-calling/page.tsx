@@ -4,6 +4,10 @@ import { Message } from 'ai/react';
 import { useChat } from 'ai/react';
 import { ChatRequest, FunctionCallHandler, nanoid } from 'ai';
 
+const ttte = ""
+
+let pie = ''
+
 export default function Chat() {
   const functionCallHandler: FunctionCallHandler = async (
     chatMessages,
