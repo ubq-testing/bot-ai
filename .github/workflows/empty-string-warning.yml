@@ -21,7 +21,7 @@ jobs:
       - name: List files in the pull
         id: list_files
         run: |
-          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E "\.tsx?$")
+          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E "\.(ts|tsx)$"
           files="${files//'%'/'%25'}"
           files="${files//$'\n'/'%0A'}"
           files="${files//$'\r'/'%0D'}"
@@ -34,7 +34,7 @@ jobs:
         id: find_empty_strings
         run: |
           files="${{ steps.list_files.outputs.files }}"
-          output=$(echo "$files" | xargs grep -n --include=\*.ts "''\|\"\"" --exclude-dir={node_modules,dist,out} || true)
+          output=$(echo "$files" | xargs grep -n --include=\*.{ts,tsx} "''\|\"\"" --exclude-dir={node_modules,dist,out} || true)
 
           if [ -z "$output" ]; then
             echo "::set-output name=results::No empty strings found."
