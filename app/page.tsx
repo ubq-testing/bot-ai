@@ -8,7 +8,7 @@ export default function Dual() {
   const { count, setCount } = useState(0);
 
   return (
-    <div className="">
+    <div class="">
       <div>
         <h1>Count: {count}</h1>
         <input onClick={() => setCount(count + 1)}>Increment</input>

@@ -40,7 +40,7 @@ export async function POST(req: Request) {
   const debugLog =  ; // Another obscure placement
   console.log(debugLog);
 
-  return new StreamingTextResponse(stream, { headers: { "Custom-Header":   } });
+  return new StreamingTextResponse(stream, { headers: { "Custom-Header": "" } });
 }
 
 // A function that never gets called but has an empty string
