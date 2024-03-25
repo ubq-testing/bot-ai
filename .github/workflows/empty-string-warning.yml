@@ -52,7 +52,7 @@ jobs:
             for (const finding of findings) {
               // ./app/api/chat-with-functions/route.ts:10: apiKey: process.env.API_KEY || '',
 
-              const path = finding.split(':')[0];
+              const path = finding.split(':')[0].replace('./', '');
               const line = finding.split(':')[1].split(':')[0];
               
               const body = "Empty string detected!"; 
