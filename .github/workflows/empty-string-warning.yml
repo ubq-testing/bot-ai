@@ -9,6 +9,7 @@ on:
 permissions:
   issues: write
   pull-requests: write
+  contents: write
 
 jobs:
   check-empty-strings:
@@ -68,15 +69,13 @@ jobs:
               const path = finding.split(':')[0].replace('./', '');
               const line = finding.split(':')[1].split(':')[0];
               
-              const body = "Empty string detected!"; 
-              const prNumber = context.payload.pull_request.number;
+              const body = "Empty string detected!";
               const owner = context.repo.owner;
               const repo = context.repo.repo;
 
               await github.rest.repos.createCommitComment({
                 owner,
                 repo,
-                pull_number: prNumber,
                 body,
                 commit_sha: context.payload.pull_request.head.sha,
                 path,
