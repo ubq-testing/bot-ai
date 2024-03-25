@@ -50,12 +50,12 @@ jobs:
       - name: Findings
         if: steps.find_empty_strings.outputs.results != 'No empty strings found.'
         run: |
-          if [ "${{ steps.find_empty_strings.outputs.results }}" == "No empty strings found." ]; then
-            echo "No empty strings found. No action required."
-            exit 0
-          else
+          findings="${{ steps.find_empty_strings.outputs.results }}"
+          if [[ "$findings" != "No empty strings found." ]]; then
             echo "::warning::Empty strings found in the following files:"
-            echo "${{ steps.find_empty_strings.outputs.results }}"
+            echo "$findings"
+          else
+            echo "No empty strings found. No action required."
           fi
 
       - name: Post review comments for findings
