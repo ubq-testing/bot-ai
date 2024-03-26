@@ -1,0 +1,9 @@
+commandSettings:
+  - name: "start"
+    enabled: true
+  - name: "help"
+    enabled: true
+  - name: "stop"
+    enabled: true
+  - name: "wallet"
+    enabled: true
