@@ -21,7 +21,6 @@ function example() {
 `;
 
 export default function DocsPage() {
-  const [markdown, setMarkdown] = useState("");
 
   useEffect(() => {
     setMarkdown(demoDoc);
