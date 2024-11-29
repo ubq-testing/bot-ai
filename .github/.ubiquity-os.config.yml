@@ -1,5 +1,1 @@
-plugins:
-  - uses:
-      - plugin: https://ubiquibot-command-wallet-development.ubiquity.workers.dev
-        with:
-          registerWalletWithVerification: true
+plugins: []
